@@ -1,71 +1,81 @@
-# AffanShz — Personal Portfolio & HUD Terminal
+# affanshz-portfolio
 
-Situs portofolio pribadi interaktif milik **Affan Shahzada** (Mobile Software Engineer — Flutter, BLoC Architecture, Cloud Sync & On-Device AI). 
+Personal portfolio website of **Affan Shahzada** featuring a retro-futuristic HUD / CRT terminal aesthetic, migrated from a static HTML site to [Astro](https://astro.build).
 
-Dibangun dengan arsitektur **Zero-Build Static Web** berestetika retro-futuristik HUD / CRT terminal, tanpa ketergantungan framework bundler (no Webpack, Vite, or Node.js required).
+- **Target Domain:** [affanshz.dev](https://affanshz.dev)
+- **Framework:** Astro 5 (Static Output)
 
 ---
 
-## 📁 Struktur Folder
+## 📁 Project Structure
 
 ```text
-Porto-404/
-├── 404.html                    # Halaman 404 kustom ("Signal Lost")
-├── index.html                  # Halaman utama portofolio & HUD terminal
-├── work.html                   # Redirect helper menuju anchor #sec-work
-├── serve.py                    # Local dev server (no-store cache header)
-├── robots.txt                  # Aturan web crawler & sitemap pointer
-├── sitemap.xml                 # XML sitemap SEO
-├── unbelievablycrap-teardown.md# Dokumentasi riset & analisis arsitektur
-├── assets/                     # Grafis, ikon, favicon, cover proyek, noise grain
-│   ├── grain/                  # CRT noise texture
-│   └── work/                   # Cover asset proyek & studi kasus
-├── css/                        # Stylesheet modular (HUD, CRT, A11y, tema, grid)
-├── fonts/                      # Self-hosted web fonts (PP Supply Sans & Mono)
-└── js/                         # Skrip vanilla JS modular (terminal, clock, palette, data)
+├── public/                 # Static assets served as-is (images, fonts, textures)
+│   ├── assets/             # Project covers, icons, and CRT noise textures
+│   └── fonts/              # Self-hosted web fonts (PP Supply Mono & Sans)
+├── src/
+│   ├── components/         # Astro UI components (Hero, WorkGrid, ErrRoom, Bar, Gate)
+│   ├── data/               # Project data and structured content (projects.ts)
+│   ├── layouts/            # Base HTML shells and shared layouts (Layout.astro)
+│   ├── pages/              # Route entry points (index.astro)
+│   └── styles/             # Modular CSS stylesheets (HUD, CRT, UI, Loader)
+├── astro.config.mjs        # Astro configuration (output: 'static')
+├── package.json            # Project dependencies and build scripts
+└── tsconfig.json           # TypeScript configuration
 ```
 
 ---
 
-## 🚀 Menjalankan Secara Lokal
+## 🚀 Getting Started
 
-Proyek ini menyertakan `serve.py` khusus berbasis `http.server` Python yang mengirimkan header `Cache-Control: no-store` agar browser tidak menyimpan cache file statis saat pengembangan.
-
-### Prasyarat
-- Python 3.8+ terpasang di sistem.
-
-### Menjalankan Server
-Jalankan perintah berikut di terminal:
+### 1. Install Dependencies
 
 ```bash
-# Menjalankan di port default (8000)
-python serve.py
-
-# Atau tentukan custom port:
-python serve.py 3000
+npm install
 ```
 
-Buka peramban di [http://localhost:8000](http://localhost:8000) atau [http://127.0.0.1:8000](http://127.0.0.1:8000).
+### 2. Development Server
+
+```bash
+npm run dev
+```
+
+Starts the local development server at `http://localhost:4321`.
+
+### 3. Build for Production
+
+```bash
+npm run build
+```
+
+Generates an optimized static build in the `dist/` folder.
+
+### 4. Preview Production Build
+
+```bash
+npm run preview
+```
+
+Serves the contents of `dist/` locally to verify production output.
 
 ---
 
-## 🌐 Cara Deploy ke GitHub Pages
+## 🌐 Deployment Notes
 
-Karena proyek ini murni file statis (HTML/CSS/JS), proses deploy ke GitHub Pages sangat instan:
+With `output: 'static'` configured in `astro.config.mjs`, the site compiles to zero-runtime static files in `dist/`.
 
-1. Buat repository baru di GitHub dan unggah seluruh file proyek.
-2. Buka repository di GitHub, lalu pilih tab **Settings**.
-3. Pada bilah menu kiri, navigasi ke **Pages** (di bawah *Code and automation*).
-4. Di bagian **Build and deployment**:
-   - **Source**: Pilih `Deploy from a branch`.
-   - **Branch**: Pilih `main` (atau `master`) dan folder `/ (root)`.
-   - Klik **Save**.
-5. Tunggu sekitar 1–2 menit hingga GitHub Actions selesai mempublikasikan situs.
-6. Halaman `404.html` di root akan otomatis dikenali dan disajikan oleh GitHub Pages saat rute tidak ditemukan.
+### GitHub Pages
 
----
+1. Navigate to **Settings > Pages** in your GitHub repository.
+2. Under **Build and deployment > Source**, choose **GitHub Actions**.
+3. Use the Astro starter deployment workflow (or set up an action running `npm run build` with artifact deployment from `dist`).
+4. To link the custom domain, enter `affanshz.dev` under **Custom domain** (or add a `public/CNAME` file containing `affanshz.dev`).
 
-## 💡 Konfigurasi Tambahan
+### Cloudflare Pages
 
-- **Custom Domain**: Tambahkan file `CNAME` atau atur di tab *Settings > Pages > Custom domain* (misal: `affanshz.dev`).
-- **SEO & Canonical URL**: Perbarui domain pada [sitemap.xml](file:///D:/Porto-404/sitemap.xml) dan tag meta canonical di [index.html](file:///D:/Porto-404/index.html) saat domain produksi sudah aktif.
+1. In the Cloudflare dashboard, go to **Workers & Pages > Create application > Pages > Connect to Git**.
+2. Select this repository and configure build settings:
+   - **Framework preset**: `Astro`
+   - **Build command**: `npm run build`
+   - **Build output directory**: `dist`
+3. After deployment, navigate to **Custom domains** and add `affanshz.dev`.
