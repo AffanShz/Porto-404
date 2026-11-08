@@ -1,0 +1,26 @@
+---
+/* index.astro — Single-page Tactical Dossier: three stacked sectors
+   (INDEX → WORK → ERROR) in one continuous scroll. */
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import SectorGap from '../components/SectorGap.astro';
+import WorkGrid from '../components/WorkGrid.astro';
+import ErrRoom from '../components/ErrRoom.astro';
+---
+
+<Layout
+  title="AffanShz — Mobile Software Engineer / Flutter • BLoC • AI"
+  description="Affan Shahzada — Mobile Software Engineer. Flutter, BLoC Architecture, Cloud Sync & On-Device AI."
+>
+  <!-- ══════════ SECTOR 01 // INDEX — Hero & Case-File Narrative ══════════ -->
+  <Hero />
+
+  <!-- Sector transition buffer: breathing room between INDEX and WORK -->
+  <SectorGap />
+
+  <!-- ══════════ SECTOR 02 // WORK — Infinite Draggable Project Matrix ════ -->
+  <WorkGrid />
+
+  <!-- ══════════ SECTOR 03 // ERROR — Damaged Sector Terminal (Finale) ════ -->
+  <ErrRoom />
+</Layout>

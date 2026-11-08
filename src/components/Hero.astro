@@ -1,0 +1,289 @@
+---
+/* Hero.astro — SECTOR 01 // INDEX: hero typography, case-file narrative
+   virtual column, and tactical HUD instrument panel. */
+---
+
+<section class="about" id="sec-index" data-section="mask">
+
+  <!-- Hero Typography -->
+  <div class="about__hero">
+    <h1 class="about__title anim-line" style="--i:0">AFFAN SHAHZADA</h1>
+    <div class="about__sub anim-line" style="--i:1">
+      <b>//</b>
+      <span>MOBILE SOFTWARE ENGINEER</span>
+      <b>//</b>
+      <span>FLUTTER • BLOC • MOBILE AI</span>
+      <b>//</b>
+      <span>SEMARANG</span>
+    </div>
+  </div>
+
+  <!-- Tactical Case-File Narrative (Virtual Scroll Column) -->
+  <div class="about__stage" id="aboutStage">
+    <div class="about__column" id="aboutColumn">
+      <div class="about__line" data-side="l">
+        <p class="anim-line" style="--i:2"><span class="tag">// 001</span>CASE FILE: MOBILE ENGINEER — UDINUS INFORMATICS</p>
+      </div>
+      <div class="about__line" data-side="r">
+        <p class="anim-line" style="--i:3">Informatics Engineering undergraduate at Dian Nuswantoro University (Batch 2024).</p>
+      </div>
+      <div class="about__line" data-side="l">
+        <p class="anim-line" style="--i:4">Native-performance cross-platform mobile engineering: Flutter, BLoC state management, clean architecture.</p>
+      </div>
+      <div class="about__line" data-side="r">
+        <p class="anim-line" style="--i:5"><span class="tag">// 002</span>CLOUD &amp; OFFLINE-FIRST — Supabase realtime sync, REST, Hive NoSQL encrypted with AES-256.</p>
+      </div>
+      <div class="about__line" data-side="l">
+        <p class="anim-line" style="--i:6">Applied AI: computer-vision diagnostics and on-device local LLM inference.</p>
+      </div>
+      <div class="about__line" data-side="r">
+        <p class="anim-line" style="--i:7">Fluid user interfaces backed by production-grade, maintainable code. 20+ open-source repos archived on GitHub.</p>
+      </div>
+      <div class="about__line" data-side="l">
+        <p class="anim-line" style="--i:8"><span class="tag">// 003</span>SECURITY &amp; CRAFT — Pixel-perfect motion, OWASP MASVS guidelines, zero compromise.</p>
+      </div>
+      <div class="about__line" data-side="r">
+        <p class="anim-line" style="--i:9">Keep scrolling to enter the project archive.</p>
+      </div>
+      <div class="about__line" data-side="c">
+        <p class="anim-line" style="--i:10">// READY FOR ENGAGEMENT // SCROLL INTO THE ARCHIVE //</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tactical HUD Instrument Panel -->
+  <div class="hud" aria-hidden="true">
+
+    <!-- Radar Telemetry Map -->
+    <div class="hud__map">
+      <div class="hud__mapbox">
+        <span class="hud__corner hud__corner--tl"></span>
+        <span class="hud__corner hud__corner--tr"></span>
+        <span class="hud__corner hud__corner--bl"></span>
+        <span class="hud__corner hud__corner--br"></span>
+
+        <div class="hud__reticle"></div>
+        <span class="hud__dot"></span>
+
+        <span class="hud__xy hud__xy--x"><b>X</b><span>000</span></span>
+        <span class="hud__xy hud__xy--y"><b>Y</b><span>000</span></span>
+      </div>
+
+      <div class="hud__maplabels">
+        <p class="r1 hud__sep" style="left:0">//</p>
+        <p class="r1" style="left:14px">OPERATIVE ACTIVE</p>
+        <p class="r1" style="left:170px">SEMARANG, ID</p>
+        <p class="r1 hud__sep" style="left:265px">//</p>
+        <p class="r2" style="left:14px">UNIT: UDINUS '24</p>
+        <p class="r2 hud__sep" style="left:110px">//</p>
+        <p class="r2" style="left:125px">STATUS: NOMINAL</p>
+      </div>
+    </div>
+
+    <!-- Top Right Ticker Marquee -->
+    <div class="hud__ticker">
+      <div class="hud__tick">
+        <p>AFFAN SHAHZADA</p><p class="hud__sep">//</p>
+        <p>MOBILE SOFTWARE ENGINEER</p><p class="hud__sep">//</p>
+        <p>FLUTTER • BLOC • MOBILE AI</p><p class="hud__sep">//</p>
+        <p>AFFAN SHAHZADA</p><p class="hud__sep">//</p>
+        <p>MOBILE SOFTWARE ENGINEER</p><p class="hud__sep">//</p>
+        <p>FLUTTER • BLOC • MOBILE AI</p><p class="hud__sep">//</p>
+      </div>
+    </div>
+
+    <!-- Real World Coordinates (Semarang) -->
+    <div class="hud__coord hud__coord--l">
+      <p class="hud__sep">//</p><p>06.9668&deg; S</p>
+    </div>
+    <div class="hud__coord hud__coord--r">
+      <p>110.4165&deg; E</p><p class="hud__sep">//</p>
+    </div>
+
+    <!-- Tactical Status Panel -->
+    <div class="hud__panel">
+      <div class="hud__panelbody">
+        <div class="hud__row">
+          <p>TACTICAL SYSTEM</p>
+          <p style="color:var(--ui-red)">ACTIVE</p>
+        </div>
+        <div class="hud__pair">
+          <span class="hud__sep">// CLEARANCE</span>
+          <span>LEVEL_04</span>
+        </div>
+        <div class="hud__pair">
+          <span class="hud__sep">// PROTOCOL</span>
+          <span>STEALTH_V2</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slashes Progress Bar -->
+    <div class="hud__progress">
+      <div class="hud__ends">
+        <p>000</p><p>100</p>
+      </div>
+      <div class="hud__track">
+        <p class="hud__slashes hud__slashes--dim">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+        <div class="hud__fill">
+          <p class="hud__slashes">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+        </div>
+      </div>
+    </div>
+
+    <p class="hud__scroll">[SCROLL TO ENGAGE]</p>
+  </div>
+</section>
+
+<script>
+  // Skipped entirely behind the mobile gate (parity with vanilla mount rules)
+  if (!document.documentElement.classList.contains('is-gated')) {
+
+    // ---- Virtual Scroll Accumulator & Narrative Column Mover ----------
+    // The column consumes wheel input while the INDEX sector owns the
+    // viewport; at either travel boundary the wheel is released to native
+    // page scroll, so scrolling flows seamlessly into the next sector.
+    (function () {
+      const stage = document.querySelector<HTMLElement>('#aboutStage');
+      const column = document.querySelector<HTMLElement>('#aboutColumn');
+      if (!stage || !column) return;
+
+      const section = stage.closest('section')!;
+
+      let targetY = 0;
+      let currentY = 0;
+      let maxTravel = 1600;
+      let raf = 0;
+
+      function measure() {
+        const colHeight = column.scrollHeight || 1800;
+        maxTravel = Math.max(200, colHeight - window.innerHeight * 0.4);
+      }
+      measure();
+      window.addEventListener('resize', measure);
+
+      // Hybrid frame driver: rAF with a MessageChannel pump fallback so the
+      // loop keeps stepping when frame production is suspended (idle webview).
+      // The pump yields whenever real frames are flowing (dedup by lastRaf).
+      let stopped = false;
+      function hybridLoop(stepFn: (now: number) => void) {
+        let lastRaf = 0;
+        let lastPump = 0;
+        function rafLoop(now: number) {
+          lastRaf = now;
+          stepFn(now);
+          requestAnimationFrame(rafLoop);
+        }
+        requestAnimationFrame(rafLoop);
+        const ch = new MessageChannel();
+        ch.port1.onmessage = () => {
+          if (stopped) return;
+          const now = performance.now();
+          if (now - lastRaf > 50 && now - lastPump >= 16) {
+            lastPump = now;
+            stepFn(now);
+          }
+          ch.port2.postMessage(0);
+        };
+        ch.port2.postMessage(0);
+        (stepFn as any)._pump = ch;
+      }
+
+      function loop(now: number) {
+        if (stopped) return;
+        // Smooth dampening towards target
+        const dy = (targetY - currentY) * 0.08;
+        currentY += dy;
+
+        column.style.transform = `translateY(-${currentY.toFixed(2)}px)`;
+
+        // Dispatch scroll progress to HUD
+        const progress = Math.max(0, Math.min(1, currentY / maxTravel));
+        window.dispatchEvent(new CustomEvent('about:scroll', {
+          detail: { progress, travel: currentY, max: maxTravel }
+        }));
+      }
+      hybridLoop(loop);
+
+      // Sector owns the viewport while its top has not scrolled half-out
+      function inZone() {
+        const r = section.getBoundingClientRect();
+        return r.top > -window.innerHeight * 0.5;
+      }
+
+      function nudge(delta: number) {
+        const next = targetY + delta;
+        if ((next <= 0 && targetY <= 0) || (next >= maxTravel && targetY >= maxTravel)) {
+          return false; // boundary reached — hand the gesture to native page scroll
+        }
+        targetY = Math.max(0, Math.min(maxTravel, next));
+        return true;
+      }
+
+      // Wheel: consumed only inside the sector and between column boundaries
+      window.addEventListener('wheel', e => {
+        if (!inZone()) return;
+        if (nudge(e.deltaY * 0.85)) e.preventDefault();
+      }, { passive: false });
+
+      // Keyboard mirrors wheel behaviour
+      window.addEventListener('keydown', e => {
+        if (!inZone()) return;
+        let step = 0;
+        if (e.key === 'ArrowDown' || e.key === 'PageDown') step = 120;
+        else if (e.key === 'ArrowUp' || e.key === 'PageUp') step = -120;
+        else if (e.key === 'Home') { e.preventDefault(); targetY = 0; return; }
+        else if (e.key === 'End') { e.preventDefault(); targetY = maxTravel; return; }
+        if (!step) return;
+        if (nudge(step)) e.preventDefault();
+      });
+    })();
+
+    // ---- HUD Pointer Tracking & Telemetry ------------------------------
+    (function () {
+      const root = document.querySelector<HTMLElement>('.hud');
+      if (!root) return;
+
+      const dot = root.querySelector<HTMLElement>('.hud__dot');
+      const box = root.querySelector<HTMLElement>('.hud__mapbox');
+      const readX = root.querySelector<HTMLElement>('.hud__xy--x span');
+      const readY = root.querySelector<HTMLElement>('.hud__xy--y span');
+      const fill = root.querySelector<HTMLElement>('.hud__fill');
+
+      let boxW = 283, boxH = 142;
+      const dotSize = 4;
+
+      function measure() {
+        if (!box) return;
+        const r = box.getBoundingClientRect();
+        boxW = r.width;
+        boxH = r.height;
+      }
+      measure();
+      window.addEventListener('resize', measure);
+
+      // Remap clientX / clientY onto the 283x142 radar box
+      window.addEventListener('pointermove', e => {
+        const rx = e.clientX / window.innerWidth;
+        const ry = e.clientY / window.innerHeight;
+
+        const px = Math.max(0, Math.min(boxW - dotSize, rx * boxW));
+        const py = Math.max(0, Math.min(boxH - dotSize, ry * boxH));
+
+        if (dot) {
+          dot.style.transform = `translate(${px.toFixed(1)}px, ${py.toFixed(1)}px)`;
+        }
+
+        if (readX) readX.textContent = Math.round(rx * 999).toString().padStart(3, '0');
+        if (readY) readY.textContent = Math.round(ry * 999).toString().padStart(3, '0');
+      });
+
+      // Listen for scroll progress dispatches from the narrative column
+      window.addEventListener('about:scroll', e => {
+        if (!fill) return;
+        const progress = Math.max(0, Math.min(1, (e as CustomEvent).detail?.progress || 0));
+        fill.style.width = (progress * 100).toFixed(1) + '%';
+      });
+    })();
+  }
+</script>

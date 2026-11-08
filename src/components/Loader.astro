@@ -1,0 +1,109 @@
+---
+/* Loader.astro — Tactical 5-Phase Preloader (removed when ?skip / reduced-motion). */
+---
+
+<div class="loader" data-loader aria-hidden="true">
+  <div class="loader__logo"></div>
+
+  <p class="loader__block loader__dead1 anim-line" style="--i:1">SYSTEM INITIALIZATION</p>
+  <span class="loader__block loader__rule anim-line" style="--i:2; --exit-delay:.05s"></span>
+
+  <div class="loader__block loader__lines" style="--exit-delay:.05s">
+    <p class="anim-line" style="--i:3">// OPERATIVE: AFFANSHZ</p>
+    <p class="anim-line" style="--i:4">// CLEARANCE: LEVEL 04</p>
+    <p class="anim-line" style="--i:5">***</p>
+  </div>
+
+  <div class="loader__block loader__roles" style="--exit-delay:.12s">
+    <p class="anim-line" style="--i:6">MOBILE SOFTWARE ENGINEER</p>
+    <p class="anim-line" style="--i:7">FLUTTER / BLOC ARCHITECTURE</p>
+    <p class="anim-line" style="--i:8">CLOUD SYNC &amp; OFFLINE-FIRST</p>
+    <p class="anim-line" style="--i:9">ON-DEVICE AI SYSTEMS</p>
+    <p class="anim-line" style="--i:10">TACTICAL UI CRAFT</p>
+  </div>
+
+  <div class="loader__block loader__status" style="--exit-delay:.18s">
+    <p class="anim-line" style="--i:11">***</p>
+    <p class="anim-line" style="--i:12">CALIBRATING INTERACTION MATRIX</p>
+    <p class="anim-line" style="--i:13">2026 // WIB SECURE</p>
+  </div>
+
+  <p class="loader__block loader__pct anim-line" style="--i:14; --exit-delay:.22s" data-loader-pct>0</p>
+  <p class="loader__block loader__enjoy anim-line" style="--i:15; --exit-delay:.26s">DO NOT DISCONNECT</p>
+
+  <div class="loader__line" data-loader-line></div>
+</div>
+
+<script>
+  // Progressive Asset-Decode Mathematical Preloader
+  (function () {
+    const root = document.documentElement;
+    const el = document.querySelector<HTMLElement>('[data-loader]');
+
+    if (!root.classList.contains('is-loading')) {
+      el?.remove();
+      return;
+    }
+    if (!el) {
+      root.classList.remove('is-loading');
+      return;
+    }
+
+    const MIN_MS = 1800;
+    const MAX_MS = 2400;
+    const EXIT_AT = 1100;
+
+    const pctEl = el.querySelector<HTMLElement>('[data-loader-pct]');
+    const lineEl = el.querySelector<HTMLElement>('[data-loader-line]');
+
+    let done = 0;
+
+    // Track fonts and any preloaded images
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => done++).catch(() => done++);
+    } else {
+      done++;
+    }
+
+    const start = performance.now();
+    let raf = 0, exiting = false, flooding = false;
+
+    function step(now: number) {
+      const elapsed = now - start;
+      const pTime = elapsed / MIN_MS;
+      const pReal = done / 1;
+      const pFloor = elapsed / MAX_MS;
+      const p = Math.min(pTime, Math.max(pReal, pFloor));
+      const pct = Math.min(100, Math.floor(p * 100));
+
+      if (pctEl) pctEl.textContent = String(pct);
+      if (lineEl) lineEl.style.width = pct + '%';
+
+      if (elapsed >= EXIT_AT && !exiting) {
+        exiting = true;
+        el.classList.add('is-exiting');
+      }
+
+      if (p >= 1.0 && !flooding) {
+        flooding = true;
+        cancelAnimationFrame(raf);
+        if (pctEl) pctEl.textContent = '100';
+        if (lineEl) lineEl.style.width = '100%';
+
+        el.classList.add('is-flooding');
+
+        setTimeout(() => {
+          root.classList.remove('is-loading');
+          el.style.opacity = '0';
+          el.style.transition = 'opacity 0.4s ease';
+          setTimeout(() => el.remove(), 400);
+        }, 650);
+        return;
+      }
+
+      raf = requestAnimationFrame(step);
+    }
+
+    raf = requestAnimationFrame(step);
+  })();
+</script>
