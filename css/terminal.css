@@ -1,0 +1,184 @@
+/* ==========================================================================
+   terminal.css — Secure Shell Easter Egg (ERROR Sector).
+   Trigger, social chips and the fixed terminal panel.
+   AffanShz Creative Portfolio.
+   ========================================================================== */
+
+/* ---------------- Trigger + Social Row ------------------------------------ */
+
+.term-trigger {
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  padding: 7px 14px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: var(--tracking-tight, -0.4px);
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+}
+
+.term-trigger:hover {
+  background: var(--ui-red, #e8271c);
+  border-color: var(--ui-red, #e8271c);
+  color: #ffffff;
+}
+
+.term-trigger:focus-visible {
+  outline: 1px dashed var(--ui-red, #e8271c);
+  outline-offset: 3px;
+}
+
+.term-social {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.term-social__link {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: var(--tracking-tight, -0.4px);
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--ui-grey, #c8c8c8);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 4px 8px;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.term-social__link:hover {
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.term-social__link:focus-visible {
+  outline: 1px dashed var(--ui-red, #e8271c);
+  outline-offset: 2px;
+}
+
+/* ---------------- Terminal Panel ------------------------------------------ */
+
+.term {
+  position: fixed;
+  left: 50%;
+  bottom: 7vh;
+  transform: translateX(-50%);
+  width: min(640px, calc(100vw - 32px));
+  max-height: min(60vh, 520px);
+  display: flex;
+  flex-direction: column;
+  background: #050505;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  z-index: 9500;
+  text-align: left;
+  animation: term-in 0.18s steps(3) both;
+}
+
+@keyframes term-in {
+  from { opacity: 0; transform: translateX(-50%) translateY(10px); }
+  to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+
+/* Corner brackets */
+.term__c {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+}
+
+.term__c--tl { top: -1px; left: -1px; border-top: 1px solid var(--ui-red, #e8271c); border-left: 1px solid var(--ui-red, #e8271c); }
+.term__c--tr { top: -1px; right: -1px; border-top: 1px solid var(--ui-red, #e8271c); border-right: 1px solid var(--ui-red, #e8271c); }
+.term__c--bl { bottom: -1px; left: -1px; border-bottom: 1px solid var(--ui-red, #e8271c); border-left: 1px solid var(--ui-red, #e8271c); }
+.term__c--br { bottom: -1px; right: -1px; border-bottom: 1px solid var(--ui-red, #e8271c); border-right: 1px solid var(--ui-red, #e8271c); }
+
+.term__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: var(--tracking-tight, -0.4px);
+  text-transform: uppercase;
+  color: var(--ui-grey, #c8c8c8);
+  user-select: none;
+}
+
+.term__title::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ui-red, #e8271c);
+  box-shadow: 0 0 6px var(--ui-red, #e8271c);
+  flex: none;
+}
+
+.term__titleHint {
+  margin-left: auto;
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.term__body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.7;
+  color: #ffffff;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+}
+
+.term__row { white-space: pre-wrap; word-break: break-word; }
+.term__row--cmd  { color: #ffffff; }
+.term__row--dim  { color: var(--ui-grey, #c8c8c8); }
+.term__row--red  { color: var(--ui-red, #e8271c); }
+.term__row--ok   { color: #54dcff; }
+
+.term__line {
+  display: flex;
+  align-items: baseline;
+  gap: 0;
+  padding: 8px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.term__prompt {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ui-red, #e8271c);
+  flex: none;
+  user-select: none;
+}
+
+.term__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #ffffff;
+  caret-color: #ffffff;
+  letter-spacing: var(--tracking-tight, -0.4px);
+}
+
+.term__input::placeholder {
+  color: rgba(255, 255, 255, 0.25);
+  text-transform: uppercase;
+}
+
+/* ---------------- Reduced Motion ------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .term { animation: none; }
+  .term-trigger,
+  .term-social__link { transition: none; }
+}

@@ -1,0 +1,21 @@
+/* ==========================================================================
+   crt.css — CRT Tube Scanlines, Vignette & Phosphor Raster.
+   AffanShz Creative Portfolio.
+   ========================================================================== */
+
+.crt {
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 50%,
+      rgba(0, 0, 0, 0) 45%,
+      rgba(0, 0, 0, 0.45) 100%),
+    repeating-linear-gradient(0deg,
+      rgba(0, 0, 0, 0.18) 0px,
+      rgba(0, 0, 0, 0.18) 1px,
+      rgba(0, 0, 0, 0) 1px,
+      rgba(0, 0, 0, 0) 3px);
+  background-position: 0 0, 0 var(--crt-roll, 0px);
+}

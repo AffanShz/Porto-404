@@ -1,0 +1,298 @@
+/* ==========================================================================
+   hud.css — Tactical HUD Telemetry Instrument Panel.
+   AffanShz Creative Portfolio.
+   ========================================================================== */
+
+.hud {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  font-family: var(--font-mono);
+  font-size: var(--ui-10);
+  letter-spacing: var(--tracking-tight);
+  line-height: 0.5;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.hud p {
+  margin: 0;
+}
+
+.hud__sep {
+  color: var(--ui-grey);
+  opacity: 0.5;
+}
+
+/* ---------------- Top-Left Tactical Map & Radar Box ----------------------- */
+.hud__map {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  width: 283px;
+}
+
+.hud__mapbox {
+  position: relative;
+  width: 283px;
+  height: 142px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(10, 10, 10, 0.8);
+
+  /* 105deg diagonal hatch pattern translated by period / sin(105deg) = 5.176px */
+  --hatch-angle: 105deg;
+  --hatch-ink: rgba(255, 255, 255, 0.08);
+  --hatch-thick: 0.5px;
+  --hatch-period: 5px;
+  --hatch-step: 5.176px;
+  --hatch-speed: 0.35s;
+}
+
+.hud__mapbox::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -8px;
+  right: -8px;
+  background: repeating-linear-gradient(
+    var(--hatch-angle),
+    var(--hatch-ink) 0px,
+    var(--hatch-ink) var(--hatch-thick),
+    transparent var(--hatch-thick),
+    transparent var(--hatch-period)
+  );
+  animation: hudHatch var(--hatch-speed) linear infinite;
+  will-change: transform;
+}
+
+@keyframes hudHatch {
+  from { transform: translateX(0); }
+  to   { transform: translateX(var(--hatch-step)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hud__mapbox::before {
+    animation: none;
+  }
+}
+
+/* Radar Reticle Crosshair in Center */
+.hud__reticle {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 60px;
+  height: 60px;
+  transform: translate(-50%, -50%);
+  border: 1px dashed rgba(232, 39, 28, 0.35);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.hud__reticle::before,
+.hud__reticle::after {
+  content: "";
+  position: absolute;
+  background: rgba(232, 39, 28, 0.35);
+}
+
+.hud__reticle::before {
+  left: 50%;
+  top: -8px;
+  bottom: -8px;
+  width: 1px;
+  transform: translateX(-50%);
+}
+
+.hud__reticle::after {
+  top: 50%;
+  left: -8px;
+  right: -8px;
+  height: 1px;
+  transform: translateY(-50%);
+}
+
+/* 4 Corner Markers */
+.hud__corner {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: #ffffff;
+}
+
+.hud__corner--tl { left: 0; top: 0; }
+.hud__corner--tr { right: 0; top: 0; }
+.hud__corner--bl { left: 0; bottom: 0; }
+.hud__corner--br { right: 0; bottom: 0; }
+
+/* Pointer Tracker Dot */
+.hud__dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  height: 4px;
+  background: var(--ui-red);
+  box-shadow: 0 0 6px var(--ui-red);
+  will-change: transform;
+  transform: translate(140px, 70px);
+}
+
+/* Realtime Coordinates Readout */
+.hud__xy {
+  position: absolute;
+  bottom: 0;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 6px;
+  background: #ffffff;
+  color: #000000;
+  font-weight: 500;
+}
+
+.hud__xy--x { left: 0; }
+.hud__xy--y { right: 0; }
+.hud__xy span { min-width: 24px; text-align: right; }
+
+/* Labels Under Map */
+.hud__maplabels {
+  position: relative;
+  height: 24px;
+  margin-top: 8px;
+}
+
+.hud__maplabels p {
+  position: absolute;
+  white-space: nowrap;
+}
+
+.hud__maplabels .r1 { top: 0; }
+.hud__maplabels .r2 { top: 11px; }
+
+/* ---------------- Running Ticker Marquee (Top Right) ---------------------- */
+.hud__ticker {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 320px;
+  height: 14px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.hud__tick {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  animation: hudTicker 16s linear infinite;
+  will-change: transform;
+}
+
+@keyframes hudTicker {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ---------------- Mid-Screen Coordinates ---------------------------------- */
+.hud__coord {
+  position: absolute;
+  top: 33%;
+  width: 283px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.hud__coord--l { left: 10px; }
+.hud__coord--r { right: 10px; }
+
+/* ---------------- Tactical Panel (Bottom Left) ---------------------------- */
+.hud__panel {
+  position: absolute;
+  left: 10px;
+  bottom: 84px;
+  width: 283px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.hud__panelbody {
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  background: rgba(10, 10, 10, 0.6);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.hud__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hud__pair {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* ---------------- Slashes Progress Bar ------------------------------------ */
+.hud__progress {
+  position: absolute;
+  left: 10px;
+  bottom: 38px;
+  width: 283px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.hud__ends {
+  display: flex;
+  justify-content: space-between;
+  color: var(--ui-grey);
+}
+
+.hud__track {
+  position: relative;
+  overflow: hidden;
+  height: 10px;
+}
+
+.hud__slashes {
+  font-family: var(--font-mono);
+  letter-spacing: -1px;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+.hud__slashes--dim {
+  color: rgba(255, 255, 255, 0.15);
+}
+
+.hud__fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0%;
+  overflow: hidden;
+  will-change: width;
+}
+
+.hud__fill .hud__slashes {
+  color: var(--ui-red);
+}
+
+.hud__scroll {
+  position: absolute;
+  right: 10px;
+  bottom: 38px;
+  color: var(--ui-grey);
+}

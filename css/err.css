@@ -1,0 +1,125 @@
+/* ==========================================================================
+   err.css — Tactical 404 Damaged Sector Terminal.
+   AffanShz Creative Portfolio.
+   ========================================================================== */
+
+.err-room {
+  position: relative;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--c-black, #000000);
+  font-family: var(--font-mono);
+  text-align: center;
+  padding: 20px;
+}
+
+.err__glitch {
+  font-family: var(--font-main);
+  font-size: clamp(4rem, 16vw, 14rem);
+  line-height: 0.8;
+  letter-spacing: var(--tracking);
+  color: var(--ui-red);
+  margin: 0 0 16px;
+  text-transform: uppercase;
+  font-weight: 400;
+  text-shadow: 0 0 20px rgba(232, 39, 28, 0.4);
+}
+
+.err__headline {
+  font-size: 14px;
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0 0 12px;
+}
+
+.err__meta {
+  font-size: 10px;
+  color: var(--ui-grey);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+
+/* Invert Negative Strip */
+.err__strip {
+  width: 100vw;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: invert(1);
+  -webkit-backdrop-filter: invert(1);
+  background: rgba(255, 255, 255, 0.1);
+  margin-bottom: 32px;
+}
+
+.err__stripIn {
+  display: flex;
+  gap: 12px;
+  font-size: 10px;
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  color: #000000;
+  font-weight: 500;
+}
+
+/* Emergency Return Button */
+.err__return {
+  background: var(--ui-red);
+  color: #ffffff;
+  border: 1px solid var(--ui-red);
+  padding: 10px 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.err__return:hover {
+  background: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
+/* ---------------- Periodic 404 Headline Glitch -----------------------------
+   js/err-entrance.js toggles is-glitching for ~0.4s once every 10s:
+   glyph-scramble decode on the text + RGB split / slice jitter below.
+   -------------------------------------------------------------------------- */
+.err-room.is-glitching .err__glitch {
+  animation: err-head-jitter 0.14s steps(2) infinite;
+}
+
+@keyframes err-head-jitter {
+  0%   { transform: translate3d(0, 0, 0);      text-shadow: 3px 0 0 rgba(232, 39, 28, 0.85), -3px 0 0 rgba(84, 220, 255, 0.7);  clip-path: inset(0 0 0 0); }
+  25%  { transform: translate3d(-5px, 2px, 0); text-shadow: -6px 0 0 rgba(232, 39, 28, 0.85), 5px 0 0 rgba(84, 220, 255, 0.7);  clip-path: inset(7% 0 58% 0); }
+  50%  { transform: translate3d(6px, -3px, 0); text-shadow: 5px 0 0 rgba(232, 39, 28, 0.85), -5px 0 0 rgba(84, 220, 255, 0.7);  clip-path: inset(42% 0 10% 0); }
+  75%  { transform: translate3d(-3px, 3px, 0); text-shadow: -4px 0 0 rgba(232, 39, 28, 0.85), 4px 0 0 rgba(84, 220, 255, 0.7);  clip-path: inset(64% 0 3% 0); }
+  100% { transform: translate3d(0, 0, 0);      text-shadow: 3px 0 0 rgba(232, 39, 28, 0.85), -3px 0 0 rgba(84, 220, 255, 0.7);  clip-path: inset(0 0 0 0); }
+}
+
+/* ---------------- Periodic Strip Glitch ------------------------------------
+   js/err-entrance.js toggles is-glitching on .err__strip for ~0.4s once
+   every 15s: glyph-scramble decode on the strip text + slice jitter /
+   RGB split below (same language as the back-to-index scramble).
+   -------------------------------------------------------------------------- */
+.err__strip.is-glitching .err__stripIn {
+  animation: err-strip-jitter 0.14s steps(2) infinite;
+}
+
+@keyframes err-strip-jitter {
+  0%   { transform: translate3d(0, 0, 0);      text-shadow: 2px 0 0 rgba(232, 39, 28, 0.85), -2px 0 0 rgba(84, 220, 255, 0.7);  clip-path: inset(0 0 0 0); }
+  25%  { transform: translate3d(-4px, 1px, 0); text-shadow: -3px 0 0 rgba(232, 39, 28, 0.85), 3px 0 0 rgba(84, 220, 255, 0.7);  clip-path: inset(18% 0 42% 0); }
+  50%  { transform: translate3d(5px, -1px, 0); text-shadow: 3px 0 0 rgba(232, 39, 28, 0.85), -3px 0 0 rgba(84, 220, 255, 0.7);  clip-path: inset(48% 0 12% 0); }
+  75%  { transform: translate3d(-3px, 1px, 0); text-shadow: -2px 0 0 rgba(232, 39, 28, 0.85), 2px 0 0 rgba(84, 220, 255, 0.7);  clip-path: inset(70% 0 4% 0); }
+  100% { transform: translate3d(0, 0, 0);      text-shadow: 2px 0 0 rgba(232, 39, 28, 0.85), -2px 0 0 rgba(84, 220, 255, 0.7);  clip-path: inset(0 0 0 0); }
+}

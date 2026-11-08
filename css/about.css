@@ -1,0 +1,118 @@
+/* ==========================================================================
+   about.css — Hero Headline & Tactical Case-File Narrative Scroll.
+   AffanShz Creative Portfolio.
+   ========================================================================== */
+
+.about {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--c-black, #000000);
+  touch-action: pan-y;
+}
+
+/* ---------------- Hero Section -------------------------------------------- */
+.about__hero {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 18svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.about__title {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-main);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking);
+  font-size: clamp(3.2rem, 12vw, 10.5rem);
+  line-height: 0.5;
+  padding-top: 0.35em;
+  padding-bottom: 0.35em;
+  background: linear-gradient(to top, rgba(255, 255, 255, 0.1) 8%, #ffffff 88%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.about__sub {
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: var(--ui-10);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  color: var(--ui-grey);
+}
+
+.about__sub b {
+  color: var(--ui-red);
+  font-weight: normal;
+}
+
+/* ---------------- Case File Scroll Stage ---------------------------------- */
+.about__stage {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  overflow: hidden;
+  cursor: default;
+}
+
+.about__column {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 48svh;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  will-change: transform;
+}
+
+.about__line {
+  display: flex;
+  align-items: baseline;
+  padding: 0 40px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.2;
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  color: var(--c-white);
+}
+
+.about__line p {
+  margin: 0;
+  max-width: 540px;
+  white-space: nowrap;
+}
+
+.about__line[data-side="l"] {
+  justify-content: flex-start;
+  padding-left: 20%;
+}
+
+.about__line[data-side="r"] {
+  justify-content: flex-end;
+  padding-right: 20%;
+}
+
+.about__line[data-side="c"] {
+  justify-content: center;
+}
+
+.about__line .tag {
+  color: var(--ui-red);
+  margin-right: 8px;
+}

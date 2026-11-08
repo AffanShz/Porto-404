@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>AffanShz — Mobile Software Engineer / Flutter • BLoC • AI</title>
+  <meta name="description" content="Affan Shahzada — Mobile Software Engineer. Flutter, BLoC Architecture, Cloud Sync & On-Device AI." />
+  <meta name="color-scheme" content="dark" />
+
+  <link rel="preload" href="fonts/PPSupplySans-Regular.woff?v=2" as="font" type="font/woff" crossorigin />
+
+  <link rel="stylesheet" href="css/base.css?v=2" />
+  <link rel="stylesheet" href="css/ui.css?v=2" />
+  <link rel="stylesheet" href="css/hud.css?v=2" />
+  <link rel="stylesheet" href="css/about.css?v=2" />
+  <link rel="stylesheet" href="css/loader.css?v=2" />
+  <link rel="stylesheet" href="css/work-grid.css?v=2" />
+  <link rel="stylesheet" href="css/err.css?v=2" />
+  <link rel="stylesheet" href="css/crt.css?v=2" />
+  <link rel="stylesheet" href="css/gate.css?v=2" />
+
+  <!-- Inline Gate & Loader Sentinel: Settled before first paint to prevent layout flash -->
+  <script>
+    (function () {
+      var gated = !/[?&]mobile(&|=|$)/.test(location.search) &&
+                  window.matchMedia &&
+                  window.matchMedia('(max-width: 720px)').matches;
+      if (gated) document.documentElement.className += ' is-gated';
+
+      var reduced = window.matchMedia &&
+                    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!gated && !reduced && !/[?&]skip(&|=|$)/.test(location.search)) {
+        document.documentElement.className += ' is-loading';
+      }
+    })();
+  </script>
+</head>
+<body>
+
+  <!-- ==================================================================
+       Mobile Gate Blocker (< 720px)
+       ================================================================== -->
+  <div class="gate">
+    <img class="gate__logo" src="assets/logo.svg" alt="AffanShz Emblem" width="64" height="64" />
+    <p class="gate__say">
+      TACTICAL TERMINAL REQUIRED<br />
+      EXPERIENCE IS BEST VIEWED<br />
+      ON DESKTOP DISPLAY
+    </p>
+    <p class="gate__foot">// OVERRIDE LOCK VIA ?mobile //</p>
+  </div>
+
+  <!-- Persistent Hardware-Accelerated Film Grain & CRT Overlay -->
+  <div class="grain" data-grain-animate="true" aria-hidden="true"></div>
+  <div class="crt" aria-hidden="true"></div>
+
+  <!-- ==================================================================
+       Tactical 5-Phase Preloader
+       ================================================================== -->
+  <div class="loader" data-loader aria-hidden="true">
+    <div class="loader__logo"></div>
+
+    <p class="loader__block loader__dead1 anim-line" style="--i:1">SYSTEM INITIALIZATION</p>
+    <span class="loader__block loader__rule anim-line" style="--i:2; --exit-delay:.05s"></span>
+
+    <div class="loader__block loader__lines" style="--exit-delay:.05s">
+      <p class="anim-line" style="--i:3">// OPERATIVE: AFFANSHZ</p>
+      <p class="anim-line" style="--i:4">// CLEARANCE: LEVEL 04</p>
+      <p class="anim-line" style="--i:5">***</p>
+    </div>
+
+    <div class="loader__block loader__roles" style="--exit-delay:.12s">
+      <p class="anim-line" style="--i:6">MOBILE SOFTWARE ENGINEER</p>
+      <p class="anim-line" style="--i:7">FLUTTER / BLOC ARCHITECTURE</p>
+      <p class="anim-line" style="--i:8">CLOUD SYNC &amp; OFFLINE-FIRST</p>
+      <p class="anim-line" style="--i:9">ON-DEVICE AI SYSTEMS</p>
+      <p class="anim-line" style="--i:10">TACTICAL UI CRAFT</p>
+    </div>
+
+    <div class="loader__block loader__status" style="--exit-delay:.18s">
+      <p class="anim-line" style="--i:11">***</p>
+      <p class="anim-line" style="--i:12">CALIBRATING INTERACTION MATRIX</p>
+      <p class="anim-line" style="--i:13">2026 // WIB SECURE</p>
+    </div>
+
+    <p class="loader__block loader__pct anim-line" style="--i:14; --exit-delay:.22s" data-loader-pct>0</p>
+    <p class="loader__block loader__enjoy anim-line" style="--i:15; --exit-delay:.26s">DO NOT DISCONNECT</p>
+
+    <div class="loader__line" data-loader-line></div>
+  </div>
+
+  <!-- ==================================================================
+       Single-Page Tactical Dossier — three stacked sectors
+       ================================================================== -->
+  <main>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         SECTOR 01 // INDEX — Hero & Case-File Narrative
+         ══════════════════════════════════════════════════════════════ -->
+    <section class="about" id="sec-index" data-section="mask">
+
+      <!-- Hero Typography -->
+      <div class="about__hero">
+        <h1 class="about__title anim-line" style="--i:0">AFFAN SHAHZADA</h1>
+        <div class="about__sub anim-line" style="--i:1">
+          <b>//</b>
+          <span>MOBILE SOFTWARE ENGINEER</span>
+          <b>//</b>
+          <span>FLUTTER • BLOC • MOBILE AI</span>
+          <b>//</b>
+          <span>SEMARANG</span>
+        </div>
+      </div>
+
+      <!-- Tactical Case-File Narrative (Virtual Scroll Column) -->
+      <div class="about__stage" id="aboutStage">
+        <div class="about__column" id="aboutColumn">
+          <div class="about__line" data-side="l">
+            <p class="anim-line" style="--i:2"><span class="tag">// 001</span>CASE FILE: MOBILE ENGINEER — UDINUS INFORMATICS</p>
+          </div>
+          <div class="about__line" data-side="r">
+            <p class="anim-line" style="--i:3">Informatics Engineering undergraduate at Dian Nuswantoro University (Batch 2024).</p>
+          </div>
+          <div class="about__line" data-side="l">
+            <p class="anim-line" style="--i:4">Native-performance cross-platform mobile engineering: Flutter, BLoC state management, clean architecture.</p>
+          </div>
+          <div class="about__line" data-side="r">
+            <p class="anim-line" style="--i:5"><span class="tag">// 002</span>CLOUD &amp; OFFLINE-FIRST — Supabase realtime sync, REST, Hive NoSQL encrypted with AES-256.</p>
+          </div>
+          <div class="about__line" data-side="l">
+            <p class="anim-line" style="--i:6">Applied AI: computer-vision diagnostics and on-device local LLM inference.</p>
+          </div>
+          <div class="about__line" data-side="r">
+            <p class="anim-line" style="--i:7">Fluid user interfaces backed by production-grade, maintainable code. 20+ open-source repos archived on GitHub.</p>
+          </div>
+          <div class="about__line" data-side="l">
+            <p class="anim-line" style="--i:8"><span class="tag">// 003</span>SECURITY &amp; CRAFT — Pixel-perfect motion, OWASP MASVS guidelines, zero compromise.</p>
+          </div>
+          <div class="about__line" data-side="r">
+            <p class="anim-line" style="--i:9">Keep scrolling to enter the project archive.</p>
+          </div>
+          <div class="about__line" data-side="c">
+            <p class="anim-line" style="--i:10">// READY FOR ENGAGEMENT // SCROLL INTO THE ARCHIVE //</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tactical HUD Instrument Panel -->
+      <div class="hud" aria-hidden="true">
+
+        <!-- Radar Telemetry Map -->
+        <div class="hud__map">
+          <div class="hud__mapbox">
+            <span class="hud__corner hud__corner--tl"></span>
+            <span class="hud__corner hud__corner--tr"></span>
+            <span class="hud__corner hud__corner--bl"></span>
+            <span class="hud__corner hud__corner--br"></span>
+
+            <div class="hud__reticle"></div>
+            <span class="hud__dot"></span>
+
+            <span class="hud__xy hud__xy--x"><b>X</b><span>000</span></span>
+            <span class="hud__xy hud__xy--y"><b>Y</b><span>000</span></span>
+          </div>
+
+          <div class="hud__maplabels">
+            <p class="r1 hud__sep" style="left:0">//</p>
+            <p class="r1" style="left:14px">OPERATIVE ACTIVE</p>
+            <p class="r1" style="left:170px">SEMARANG, ID</p>
+            <p class="r1 hud__sep" style="left:265px">//</p>
+            <p class="r2" style="left:14px">UNIT: UDINUS '24</p>
+            <p class="r2 hud__sep" style="left:110px">//</p>
+            <p class="r2" style="left:125px">STATUS: NOMINAL</p>
+          </div>
+        </div>
+
+        <!-- Top Right Ticker Marquee -->
+        <div class="hud__ticker">
+          <div class="hud__tick">
+            <p>AFFAN SHAHZADA</p><p class="hud__sep">//</p>
+            <p>MOBILE SOFTWARE ENGINEER</p><p class="hud__sep">//</p>
+            <p>FLUTTER • BLOC • MOBILE AI</p><p class="hud__sep">//</p>
+            <p>AFFAN SHAHZADA</p><p class="hud__sep">//</p>
+            <p>MOBILE SOFTWARE ENGINEER</p><p class="hud__sep">//</p>
+            <p>FLUTTER • BLOC • MOBILE AI</p><p class="hud__sep">//</p>
+          </div>
+        </div>
+
+        <!-- Real World Coordinates (Semarang) -->
+        <div class="hud__coord hud__coord--l">
+          <p class="hud__sep">//</p><p>06.9668&deg; S</p>
+        </div>
+        <div class="hud__coord hud__coord--r">
+          <p>110.4165&deg; E</p><p class="hud__sep">//</p>
+        </div>
+
+        <!-- Tactical Status Panel -->
+        <div class="hud__panel">
+          <div class="hud__panelbody">
+            <div class="hud__row">
+              <p>TACTICAL SYSTEM</p>
+              <p style="color:var(--ui-red)">ACTIVE</p>
+            </div>
+            <div class="hud__pair">
+              <span class="hud__sep">// CLEARANCE</span>
+              <span>LEVEL_04</span>
+            </div>
+            <div class="hud__pair">
+              <span class="hud__sep">// PROTOCOL</span>
+              <span>STEALTH_V2</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slashes Progress Bar -->
+        <div class="hud__progress">
+          <div class="hud__ends">
+            <p>000</p><p>100</p>
+          </div>
+          <div class="hud__track">
+            <p class="hud__slashes hud__slashes--dim">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+            <div class="hud__fill">
+              <p class="hud__slashes">////////////////////////////////////////////////////////////////////////////////////////////////////</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="hud__scroll">[SCROLL TO ENGAGE]</p>
+      </div>
+    </section>
+
+    <!-- Sector transition buffer: breathing room between INDEX and WORK -->
+    <div class="sector-gap" aria-hidden="true">
+      <span class="sector-gap__rule"></span>
+      <span class="sector-gap__label">// ENTERING PROJECT ARCHIVE //</span>
+    </div>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         SECTOR 02 // WORK — Infinite Draggable Project Matrix
+         ══════════════════════════════════════════════════════════════ -->
+    <section class="wgrid" id="sec-work" data-section="design">
+      <div class="wgrid__bg" aria-hidden="true"></div>
+      <div class="wgrid__world" id="workGridWorld"></div>
+      <span class="wgrid__scroll">[DRAG TO PAN // SCROLL THROUGH]</span>
+    </section>
+
+    <!-- ══════════════════════════════════════════════════════════════
+         SECTOR 03 // ERROR — Damaged Sector Terminal (Finale)
+         ══════════════════════════════════════════════════════════════ -->
+    <section class="err-room" id="sec-err" data-section="err">
+      <h1 class="err__glitch">404</h1>
+      <p class="err__headline">SECTOR SIGNAL LOST // TARGET UNRESOLVED</p>
+      <p class="err__meta">SECTOR ID: 062-X // AUTH: INVALID // PACKET CORRUPTED</p>
+
+      <div class="err__strip" aria-hidden="true">
+        <div class="err__stripIn">
+          <span>//</span>
+          <span>THE SECTOR HAS BEEN COMPROMISED &amp; WENT 404</span>
+          <span>//</span>
+        </div>
+      </div>
+
+      <a class="err__return" data-scramble href="#sec-index">
+        <span data-label>RE-ESTABLISH UPLINK // BACK TO INDEX</span>
+        <svg width="6" height="6.67" viewBox="0 0 6 6.67" fill="none"><path d="M3 0v6.67M0 3.33h6" stroke="currentColor" stroke-width=".9"/></svg>
+      </a>
+
+      <span class="wgrid__scroll err__hint">[// END OF ARCHIVE //]</span>
+    </section>
+
+  </main>
+
+  <!-- ==================================================================
+       Bottom Navigation Bar (Shared Chrome)
+       ================================================================== -->
+  <footer class="bar">
+    <div class="bar__left">
+      <a class="bar__btn is-current" data-scramble data-nav="sec-index" href="#sec-index"><span data-label>INDEX</span> <svg class="bar__mark" viewBox="0 0 6 6.67" fill="none"><path d="M3 0v6.67M0 3.33h6" stroke="currentColor" stroke-width=".9"/></svg></a>
+      <a class="bar__btn" data-scramble data-nav="sec-work" href="#sec-work"><span data-label>WORK</span> <svg class="bar__mark" viewBox="0 0 6 6.67" fill="none"><path d="M3 0v6.67M0 3.33h6" stroke="currentColor" stroke-width=".9"/></svg></a>
+      <a class="bar__btn" data-scramble data-nav="sec-err" href="#sec-err"><span data-label>ERROR</span> <svg class="bar__mark" viewBox="0 0 6 6.67" fill="none"><path d="M3 0v6.67M0 3.33h6" stroke="currentColor" stroke-width=".9"/></svg></a>
+    </div>
+
+    <!-- Live Semarang (WIB) Timezone Clock -->
+    <div class="bar__clock" data-clock>
+      <svg class="bar__sun" viewBox="0 0 12 12" fill="none">
+        <circle cx="6" cy="6" r="2.5" fill="currentColor"/>
+        <path d="M6 0v2M6 10v2M0 6h2M10 6h2M1.7 1.7l1.5 1.5M8.8 8.8l1.5 1.5M1.7 10.3l1.5-1.5M8.8 3.2l1.5-1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+      </svg>
+      <svg class="bar__moon" viewBox="0 0 12 12" fill="none">
+        <path d="M10.2 7.6A4.6 4.6 0 0 1 4.4 1.8 4.9 4.9 0 1 0 10.2 7.6Z" fill="currentColor"/>
+      </svg>
+      <span class="bar__clockZone" data-clock-zone>GMT+7</span>
+      <i class="bar__clockMark"></i>
+      <span class="bar__clockTime" data-clock-time>00:00:00</span>
+    </div>
+
+    <!-- Tactical Copy Email CTA -->
+    <button class="bar__mail" type="button" data-copy-email="affanshahzada@gmail.com">
+      <span data-label>INITIATE TRANSMISSION</span>
+      <svg class="bar__mark" viewBox="0 0 6 6.67" fill="none"><path d="M3 0v6.67M0 3.33h6" stroke="currentColor" stroke-width=".9"/></svg>
+    </button>
+  </footer>
+
+  <!-- Application Modules (single-page build) -->
+  <script src="js/lifecycle.js?v=2"></script>
+  <script src="js/gate.js?v=2"></script>
+  <script src="js/data.js?v=2"></script>
+  <script src="js/clock.js?v=2"></script>
+  <script src="js/contact-cta.js?v=2"></script>
+  <script src="js/hud.js?v=2"></script>
+  <script src="js/about-text.js?v=2"></script>
+  <script src="js/work-grid.js?v=2"></script>
+  <script src="js/scroll-sync.js?v=2"></script>
+  <script src="js/err-entrance.js?v=2"></script>
+  <script src="js/loader.js?v=2"></script>
+
+</body>
+</html>

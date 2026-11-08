@@ -1,0 +1,277 @@
+/* ==========================================================================
+   mobile.css — Compact Terminal layout (< 720px, gated states only).
+   Everything is scoped under html.is-gated / html.is-mobile-active so the
+   desktop experience is never touched by this file.
+   AffanShz Creative Portfolio.
+   ========================================================================== */
+
+/* ---------------- Cheaper grain --------------------------------------------
+   Static noise frame behind the gate — no stepping animation on mobile.
+   -------------------------------------------------------------------------- */
+html.is-gated .grain {
+  animation: none !important;
+  opacity: 0.04;
+  filter: none;
+}
+
+/* ---------------- Post jack-in sector pruning ------------------------------
+   Desktop-only heavy sectors stay dormant on the compact terminal.
+   -------------------------------------------------------------------------- */
+html.is-mobile-active .wgrid,
+html.is-mobile-active .hud,
+html.is-mobile-active .sector-gap,
+html.is-mobile-active .err-room,
+html.is-mobile-active .loader {
+  display: none !important;
+}
+
+/* ---------------- About hero restack --------------------------------------- */
+html.is-mobile-active .about {
+  height: auto;
+  min-height: 100svh;
+  overflow: visible;
+  padding-bottom: 16px;
+}
+
+html.is-mobile-active .about__hero {
+  position: relative;
+  top: auto;
+  padding: 72px 20px 48px;
+  pointer-events: auto;
+}
+
+html.is-mobile-active .about__title {
+  font-size: clamp(2.6rem, 13vw, 4.5rem);
+  line-height: 0.9;
+}
+
+html.is-mobile-active .about__sub {
+  margin-top: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+/* Virtual case-file scroll column is a desktop instrument */
+html.is-mobile-active .about__stage {
+  display: none;
+}
+
+/* ---------------- Footer bar — shared chrome, kept usable ------------------ */
+html.is-mobile-active .bar {
+  height: 44px;
+  padding: 0 12px;
+}
+
+/* INDEX / WORK / ERROR targets are pruned sectors — drop the dead nav */
+html.is-mobile-active .bar__left {
+  display: none;
+}
+
+html.is-mobile-active .bar__clock {
+  margin-right: 10px;
+}
+
+html.is-mobile-active .bar__mail {
+  height: 28px;
+  padding: 0 12px;
+}
+
+/* ---------------- Compact feed --------------------------------------------- */
+html.is-mobile-active .mfeed {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 8px 16px calc(64px + env(safe-area-inset-bottom, 0px));
+  font-family: var(--font-mono);
+}
+
+.mfeed__label {
+  margin: 16px 0 0;
+  font-size: 10px;
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  color: var(--ui-dim, rgba(200, 200, 200, 0.45));
+}
+
+/* Project card — full-width tap target */
+html.is-mobile-active .mfeed__card {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 14px;
+  background: var(--c-ground, #050505);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: var(--c-white, #ffffff);
+  text-align: left;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.18s, background 0.18s;
+}
+
+html.is-mobile-active .mfeed__card:hover,
+html.is-mobile-active .mfeed__card:active {
+  border-color: var(--ui-red, #e8271c);
+  background: rgba(232, 39, 28, 0.06);
+}
+
+/* Corner brackets */
+html.is-mobile-active .mfeed__c {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border: 0 solid var(--ui-red, #e8271c);
+  pointer-events: none;
+}
+
+.mfeed__c--tl { top: -1px; left: -1px; border-top-width: 1px; border-left-width: 1px; }
+.mfeed__c--tr { top: -1px; right: -1px; border-top-width: 1px; border-right-width: 1px; }
+.mfeed__c--bl { bottom: -1px; left: -1px; border-bottom-width: 1px; border-left-width: 1px; }
+.mfeed__c--br { bottom: -1px; right: -1px; border-bottom-width: 1px; border-right-width: 1px; }
+
+/* Cover */
+html.is-mobile-active .mfeed__img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: var(--c-black, #000000);
+  margin: 0 0 12px;
+}
+
+/* num + status + year row */
+html.is-mobile-active .mfeed__metaRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 10px;
+  font-size: 10px;
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  color: var(--ui-grey, #c8c8c8);
+}
+
+html.is-mobile-active .mfeed__num {
+  color: var(--ui-red, #e8271c);
+}
+
+html.is-mobile-active .mfeed__year {
+  margin-left: auto;
+  color: var(--ui-dim, rgba(200, 200, 200, 0.45));
+}
+
+/* Text block */
+html.is-mobile-active .mfeed__title {
+  display: block;
+  margin: 0 0 6px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  color: var(--c-white, #ffffff);
+}
+
+html.is-mobile-active .mfeed__cat {
+  display: block;
+  margin: 0 0 10px;
+  font-size: 10px;
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  color: var(--ui-dim, rgba(200, 200, 200, 0.45));
+}
+
+html.is-mobile-active .mfeed__desc {
+  display: block;
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.55;
+  letter-spacing: 0;
+  color: var(--c-fog, #afafaf);
+}
+
+/* 44px tap row */
+html.is-mobile-active .mfeed__open {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 10px;
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  color: var(--ui-red, #e8271c);
+}
+
+/* Open channel block */
+html.is-mobile-active .mfeed__chan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 14px;
+  background: var(--c-ground, #050505);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+html.is-mobile-active .mfeed__chan .mfeed__label {
+  margin: 0;
+}
+
+html.is-mobile-active .mfeed__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  background: transparent;
+  border: 1px solid var(--ui-red, #e8271c);
+  color: var(--c-white, #ffffff);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.18s, color 0.18s;
+}
+
+html.is-mobile-active .mfeed__btn:hover,
+html.is-mobile-active .mfeed__btn:active,
+html.is-mobile-active .mfeed__btn.is-copied {
+  background: var(--ui-red, #e8271c);
+  color: #ffffff;
+}
+
+html.is-mobile-active .mfeed__meta {
+  margin: 4px 0 0;
+  font-size: 9px;
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--ui-dim, rgba(200, 200, 200, 0.45));
+}
+
+html.is-mobile-active .mfeed__end {
+  margin: 8px 0 0;
+  font-size: 10px;
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--ui-dim, rgba(200, 200, 200, 0.45));
+}
+
+/* ---------------- Reduced motion ------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html.is-mobile-active .mfeed__card,
+  html.is-mobile-active .mfeed__btn,
+  html.is-mobile-active .bar,
+  html.is-mobile-active .bar__mail {
+    transition: none;
+  }
+}

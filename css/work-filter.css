@@ -1,0 +1,91 @@
+/* ==========================================================================
+   work-filter.css — Category Filter Rail for the WORK grid.
+   Overlay rail + .is-dimmed card state. Reduced-motion safe.
+   AffanShz Creative Portfolio.
+   ========================================================================== */
+
+/* ---------------- Rail ----------------------------------------------------- */
+.wfilter {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  pointer-events: auto;
+  font-family: var(--font-mono);
+  font-size: var(--ui-10);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  cursor: default;
+}
+
+.wfilter__label {
+  color: var(--ui-grey);
+  pointer-events: none;
+}
+
+/* ---------------- Buttons (.bar__btn treatment) ---------------------------- */
+.wfilter__btn {
+  background: none;
+  border: 1px solid transparent;
+  padding: 3px 8px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--ui-10);
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  color: var(--ui-grey);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1;
+  transition: color 0.18s, border-color 0.18s;
+}
+
+/* 1px border on hover */
+.wfilter__btn:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  color: #ffffff;
+}
+
+.wfilter__btn:focus-visible {
+  outline: 1px solid var(--ui-red, #e8271c);
+  outline-offset: 2px;
+}
+
+/* `//` prefix — hidden until active */
+.wfilter__mark {
+  display: none;
+  color: var(--ui-red);
+}
+
+/* Red active state with `//` prefix */
+.wfilter__btn.is-active {
+  color: var(--ui-red);
+  border-color: transparent;
+}
+
+.wfilter__btn.is-active .wfilter__mark {
+  display: inline;
+}
+
+/* ---------------- Dimmed card state ---------------------------------------- */
+.wcard.is-dimmed {
+  opacity: 0.12;
+  pointer-events: none;
+  transition: opacity 250ms ease;
+}
+
+.wcard {
+  transition: opacity 250ms ease, border-color 0.2s, background 0.2s;
+}
+
+/* ---------------- Reduced motion ------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .wcard,
+  .wcard.is-dimmed {
+    transition: none;
+  }
+}

@@ -1,0 +1,57 @@
+/* ==========================================================================
+   gate.css — Tactical Mobile Gate Sentinel (< 720px).
+   AffanShz Creative Portfolio.
+   ========================================================================== */
+
+.gate {
+  display: none;
+}
+
+html.is-gated .gate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  background: var(--ui-red, #e8271c);
+  color: #ffffff;
+  padding: 30px;
+  text-align: center;
+  overflow: hidden;
+  overscroll-behavior: none;
+  touch-action: none;
+  font-family: var(--font-mono);
+}
+
+/* Stop all heavy layers behind the gate */
+html.is-gated body > [data-barba="container"],
+html.is-gated [data-barba="wrapper"] > main,
+html.is-gated .grain,
+html.is-gated .loader {
+  display: none !important;
+}
+
+.gate__logo {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 24px;
+}
+
+.gate__say {
+  font-size: 14px;
+  line-height: 1.4;
+  letter-spacing: -0.4px;
+  text-transform: uppercase;
+  margin: 0 0 16px;
+  font-weight: 500;
+}
+
+.gate__foot {
+  font-size: 10px;
+  letter-spacing: -0.4px;
+  text-transform: uppercase;
+  opacity: 0.8;
+  margin: 0;
+}
