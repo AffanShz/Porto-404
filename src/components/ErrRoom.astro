@@ -1,0 +1,151 @@
+---
+/* ErrRoom.astro — SECTOR 03 // ERROR: Damaged Sector Terminal (Finale).
+   404 headline bursts every 10s; the white strip scrambles every 15s. */
+---
+
+<section class="err-room" id="sec-err" data-section="err">
+  <h1 class="err__glitch">404</h1>
+  <p class="err__headline">SECTOR SIGNAL LOST // TARGET UNRESOLVED</p>
+  <p class="err__meta">SECTOR ID: 062-X // AUTH: INVALID // PACKET CORRUPTED</p>
+
+  <div class="err__strip" aria-hidden="true">
+    <div class="err__stripIn">
+      <span>//</span>
+      <span>THE SECTOR HAS BEEN COMPROMISED &amp; WENT 404</span>
+      <span>//</span>
+    </div>
+  </div>
+
+  <a class="err__return" data-scramble href="#sec-index">
+    <span data-label>RE-ESTABLISH UPLINK // BACK TO INDEX</span>
+    <svg width="6" height="6.67" viewBox="0 0 6 6.67" fill="none"><path d="M3 0v6.67M0 3.33h6" stroke="currentColor" stroke-width=".9"/></svg>
+  </a>
+
+  <span class="wgrid__scroll err__hint">[// END OF ARCHIVE //]</span>
+</section>
+
+<script>
+  // Periodic glitch bursts. Skipped behind the mobile gate (vanilla parity).
+  if (!document.documentElement.classList.contains('is-gated')) {
+    const room = document.querySelector<HTMLElement>('.err-room');
+    const head = room?.querySelector<HTMLElement>('.err__glitch');
+    const strip = room?.querySelector<HTMLElement>('.err__strip');
+    if (room && head) {
+      const GLYPHS = '▘▙▚▛▜▝▞▟▖▗▄▀█▌▐▓▒░';
+      const HEAD_TEXT = head.textContent!.trim();
+      const HEAD_PERIOD_MS = 10000;   // headline glitch once every 10 seconds
+      const HEAD_BURST_MS = 420;
+      const STRIP_PERIOD_MS = 15000;  // strip scramble once every 15 seconds
+      const STRIP_BURST_MS = 420;
+      const STRIP_SPANS = strip ? (Array.from(strip.querySelectorAll<HTMLElement>('.err__stripIn span'))) : [];
+
+      const rnd = () => GLYPHS[(Math.random() * GLYPHS.length) | 0];
+
+      let headTimer = 0;
+      let stripTimer = 0;
+      let headBursting = false;
+      let stripBursting = false;
+
+      // Glyph decoder: each character settles at a random moment inside durMs.
+      // rAF driven, with a MessageChannel pump fallback so bursts complete
+      // even when frame production is suspended.
+      function decode(el: HTMLElement, finalText: string, durMs: number, done: () => void) {
+        const chars = Array.from(finalText).map(ch => ({
+          ch,
+          settle: durMs * (0.15 + Math.random() * 0.75),
+          cur: ch === ' ' ? ' ' : rnd()
+        }));
+        const t0 = performance.now();
+        let stopped = false;
+        let lastPump = 0;
+
+        function step(now: number) {
+          if (stopped) return;
+          const t = now - t0;
+          let out = '';
+          let remaining = 0;
+          for (const c of chars) {
+            if (t >= c.settle) {
+              out += c.ch;
+            } else {
+              remaining++;
+              if (Math.random() < 0.35) c.cur = rnd();
+              out += c.cur;
+            }
+          }
+          el.textContent = out;
+          if (remaining === 0) {
+            stopped = true;
+            done();
+          }
+        }
+
+        function rafLoop(now: number) {
+          if (stopped) return;
+          step(now);
+          requestAnimationFrame(rafLoop);
+        }
+        requestAnimationFrame(rafLoop);
+
+        const ch = new MessageChannel();
+        ch.port1.onmessage = () => {
+          if (stopped) return;
+          const now = performance.now();
+          if (now - lastPump >= 16) {
+            lastPump = now;
+            step(now);
+          }
+          if (!stopped) ch.port2.postMessage(0);
+        };
+        ch.port2.postMessage(0);
+
+        (el as any)._pump = ch;
+      }
+
+      function headBurst() {
+        if (headBursting) return;
+        headBursting = true;
+        room.classList.add('is-glitching');
+        decode(head, HEAD_TEXT, HEAD_BURST_MS, () => {
+          head.textContent = HEAD_TEXT;
+          room.classList.remove('is-glitching');
+          headBursting = false;
+        });
+      }
+
+      function stripBurst() {
+        if (stripBursting || !STRIP_SPANS.length || !strip) return;
+        stripBursting = true;
+        strip.classList.add('is-glitching');
+        let pending = STRIP_SPANS.length;
+        STRIP_SPANS.forEach(el => {
+          if (!el.dataset.final) el.dataset.final = el.textContent!;
+          decode(el, el.dataset.final!, STRIP_BURST_MS, () => {
+            el.textContent = el.dataset.final!;
+            if (--pending === 0) {
+              strip.classList.remove('is-glitching');
+              stripBursting = false;
+            }
+          });
+        });
+      }
+
+      function headLoop() {
+        headTimer = setTimeout(() => {
+          headBurst();
+          headLoop();
+        }, HEAD_PERIOD_MS);
+      }
+
+      function stripLoop() {
+        stripTimer = setTimeout(() => {
+          stripBurst();
+          stripLoop();
+        }, STRIP_PERIOD_MS);
+      }
+
+      headLoop();
+      stripLoop();
+    }
+  }
+</script>

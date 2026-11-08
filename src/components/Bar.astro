@@ -1,0 +1,93 @@
+---
+/* Bar.astro — Bottom Navigation Bar + Live Semarang (WIB) Clock. */
+---
+
+<footer class="bar">
+  <div class="bar__left">
+    <a class="bar__btn is-current" data-scramble data-nav="sec-index" href="#sec-index"><span data-label>INDEX</span> <svg class="bar__mark" viewBox="0 0 6 6.67" fill="none"><path d="M3 0v6.67M0 3.33h6" stroke="currentColor" stroke-width=".9"/></svg></a>
+    <a class="bar__btn" data-scramble data-nav="sec-work" href="#sec-work"><span data-label>WORK</span> <svg class="bar__mark" viewBox="0 0 6 6.67" fill="none"><path d="M3 0v6.67M0 3.33h6" stroke="currentColor" stroke-width=".9"/></svg></a>
+    <a class="bar__btn" data-scramble data-nav="sec-err" href="#sec-err"><span data-label>ERROR</span> <svg class="bar__mark" viewBox="0 0 6 6.67" fill="none"><path d="M3 0v6.67M0 3.33h6" stroke="currentColor" stroke-width=".9"/></svg></a>
+  </div>
+
+  <!-- Live Semarang (WIB) Timezone Clock -->
+  <div class="bar__clock" data-clock>
+    <svg class="bar__sun" viewBox="0 0 12 12" fill="none">
+      <circle cx="6" cy="6" r="2.5" fill="currentColor"/>
+      <path d="M6 0v2M6 10v2M0 6h2M10 6h2M1.7 1.7l1.5 1.5M8.8 8.8l1.5 1.5M1.7 10.3l1.5-1.5M8.8 3.2l1.5-1.5" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+    </svg>
+    <svg class="bar__moon" viewBox="0 0 12 12" fill="none">
+      <path d="M10.2 7.6A4.6 4.6 0 0 1 4.4 1.8 4.9 4.9 0 1 0 10.2 7.6Z" fill="currentColor"/>
+    </svg>
+    <span class="bar__clockZone" data-clock-zone>GMT+7</span>
+    <i class="bar__clockMark"></i>
+    <span class="bar__clockTime" data-clock-time>00:00:00</span>
+  </div>
+
+  <!-- Tactical Copy Email CTA -->
+  <button class="bar__mail" type="button" data-copy-email="affanshahzada@gmail.com">
+    <span data-label>INITIATE TRANSMISSION</span>
+    <svg class="bar__mark" viewBox="0 0 6 6.67" fill="none"><path d="M3 0v6.67M0 3.33h6" stroke="currentColor" stroke-width=".9"/></svg>
+  </button>
+</footer>
+
+<script>
+  // Live Tactical Jakarta Timezone Clock (WIB GMT+7)
+  (function () {
+    const host = document.querySelector<HTMLElement>('[data-clock]');
+    if (!host) return;
+
+    const CONFIG = {
+      zone: 'Asia/Jakarta',
+      label: 'GMT+7',
+      seconds: true,
+      dayFrom: 6,
+      dayTo: 18
+    };
+
+    const timeEl = host.querySelector<HTMLElement>('[data-clock-time]');
+    const zoneEl = host.querySelector<HTMLElement>('[data-clock-zone]');
+    let timer = 0, alive = true;
+
+    let fmt: Intl.DateTimeFormat | null = null;
+    try {
+      fmt = new Intl.DateTimeFormat('en-GB', {
+        timeZone: CONFIG.zone,
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false
+      });
+    } catch (e) {
+      console.warn('[CLOCK] Zone fallback:', e);
+    }
+
+    function tick() {
+      if (!alive) return;
+      const now = new Date();
+
+      if (timeEl) {
+        if (fmt) {
+          timeEl.textContent = fmt.format(now);
+        } else {
+          timeEl.textContent = now.toTimeString().split(' ')[0];
+        }
+      }
+
+      if (zoneEl && !zoneEl.textContent) {
+        zoneEl.textContent = CONFIG.label;
+      }
+
+      // Toggle sun vs moon based on local hour
+      const hour = now.getUTCHours() + 7; // WIB is UTC+7
+      const normalizedHour = (hour + 24) % 24;
+      const isNight = normalizedHour < CONFIG.dayFrom || normalizedHour >= CONFIG.dayTo;
+      host.classList.toggle('is-night', isNight);
+
+      // Sleep precisely until next second boundary to avoid drift
+      const delay = 1000 - (Date.now() % 1000);
+      timer = setTimeout(tick, delay);
+    }
+
+    tick();
+  })();
+</script>

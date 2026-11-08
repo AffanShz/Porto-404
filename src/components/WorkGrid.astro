@@ -1,0 +1,173 @@
+---
+/* WorkGrid.astro — SECTOR 02 // WORK: Infinite Draggable Project Matrix.
+   Cards are rendered at BUILD TIME from src/data/projects.ts (the Astro
+   payoff: adding a project = one entry in data). The script only handles
+   drag / modulo wrap / click-through. */
+import { PROJECTS } from '../data/projects';
+
+const COLS = 4;
+const ROWS = 4;
+// Card sequence matches the vanilla generator: row-major, project repeating.
+const cells = Array.from({ length: COLS * ROWS }, (_, i) => PROJECTS[i % PROJECTS.length]);
+---
+
+<section class="wgrid" id="sec-work" data-section="design">
+  <div class="wgrid__bg" aria-hidden="true"></div>
+  <div class="wgrid__world" id="workGridWorld">
+    {cells.map((prj) => (
+      <div class:list={['wcard', { 'is-linked': prj.url }]} data-url={prj.url}>
+        <span class="wcard__corner wcard__corner--tl"></span>
+        <span class="wcard__corner wcard__corner--tr"></span>
+        <span class="wcard__corner wcard__corner--bl"></span>
+        <span class="wcard__corner wcard__corner--br"></span>
+
+        <div class="wcard__top">
+          <span class="wcard__num">// {prj.n}</span>
+          <span class="wcard__status">[{prj.status}]</span>
+          <span>{prj.year}</span>
+        </div>
+
+        <div class="wcard__visual">
+          {prj.img ? (
+            <img class="wcard__img" src={prj.img} alt={`${prj.title} preview`} loading="lazy" decoding="async" />
+          ) : (
+            <>
+              <div class="wcard__glyph">▚▟</div>
+              <span class="wcard__spec">// TACTICAL SPECIFICATION //</span>
+            </>
+          )}
+          <span class="wcard__cat">{prj.category}</span>
+        </div>
+
+        <div class="wcard__foot">
+          <h3 class="wcard__title">{prj.title}</h3>
+          <p class="wcard__desc">{prj.desc}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+  <span class="wgrid__scroll">[DRAG TO PAN // SCROLL THROUGH]</span>
+</section>
+
+<script>
+  // Skipped entirely behind the mobile gate (parity with vanilla mount rules)
+  if (!document.documentElement.classList.contains('is-gated')) {
+    const root = document.querySelector<HTMLElement>('.wgrid');
+    const world = document.querySelector<HTMLElement>('#workGridWorld');
+    if (root && world) {
+      const cards = Array.from(world.children) as HTMLElement[];
+      if (cards.length) {
+        // Grid Pitch Dimensions
+        const PITCH_X = 470;
+        const PITCH_Y = 320;
+        const COLS = 4;
+        const ROWS = 4;
+        const TOTAL_W = COLS * PITCH_X;
+        const TOTAL_H = ROWS * PITCH_Y;
+
+        let targetX = 0, targetY = 0;
+        let currentX = 0, currentY = 0;
+        let isDragging = false;
+        let lastX = 0, lastY = 0;
+        let dragDist = 0;
+        let raf = 0;
+
+        const bases = cards.map((_, i) => ({ baseCol: i % COLS, baseRow: Math.floor(i / COLS) }));
+
+        // Hybrid frame driver: rAF + MessageChannel pump fallback (identical
+        // cadence to the narrative column), so the field keeps animating even
+        // when frame production is suspended. Pump yields to real frames.
+        let stopped = false;
+        function hybridLoop(stepFn: (now: number) => void) {
+          let lastRaf = 0;
+          let lastPump = 0;
+          function rafLoop(now: number) {
+            lastRaf = now;
+            stepFn(now);
+            requestAnimationFrame(rafLoop);
+          }
+          requestAnimationFrame(rafLoop);
+          const ch = new MessageChannel();
+          ch.port1.onmessage = () => {
+            if (stopped) return;
+            const now = performance.now();
+            if (now - lastRaf > 50 && now - lastPump >= 16) {
+              lastPump = now;
+              stepFn(now);
+            }
+            ch.port2.postMessage(0);
+          };
+          ch.port2.postMessage(0);
+        }
+
+        function loop(now: number) {
+          if (stopped) return;
+          // Smoothed drag movement
+          currentX += (targetX - currentX) * 0.15;
+          currentY += (targetY - currentY) * 0.15;
+
+          // Modulo wrapping for infinite field
+          const vw = window.innerWidth;
+          const vh = window.innerHeight;
+
+          for (let i = 0; i < cards.length; i++) {
+            const { baseCol, baseRow } = bases[i];
+
+            let x = (baseCol * PITCH_X + currentX) % TOTAL_W;
+            let y = (baseRow * PITCH_Y + currentY) % TOTAL_H;
+
+            if (x < -PITCH_X) x += TOTAL_W;
+            if (y < -PITCH_Y) y += TOTAL_H;
+            if (x > vw + PITCH_X) x -= TOTAL_W;
+            if (y > vh + PITCH_Y) y -= TOTAL_H;
+
+            cards[i].style.transform = `translate3d(${x.toFixed(1)}px, ${y.toFixed(1)}px, 0)`;
+          }
+        }
+        hybridLoop(loop);
+
+        // Pointer drag input
+        root.addEventListener('pointerdown', e => {
+          isDragging = true;
+          dragDist = 0;
+          lastX = e.clientX;
+          lastY = e.clientY;
+          root.classList.add('is-dragging');
+          root.setPointerCapture?.(e.pointerId);
+        });
+
+        window.addEventListener('pointermove', e => {
+          if (!isDragging) return;
+          const dx = e.clientX - lastX;
+          const dy = e.clientY - lastY;
+          lastX = e.clientX;
+          lastY = e.clientY;
+          dragDist += Math.abs(dx) + Math.abs(dy);
+
+          targetX += dx * 1.35;
+          targetY += (dy + dx * 0.1) * 1.35;
+        });
+
+        const stopDrag = (e?: PointerEvent) => {
+          if (!isDragging) return;
+          isDragging = false;
+          root.classList.remove('is-dragging');
+          if (e && root.hasPointerCapture?.(e.pointerId)) {
+            root.releasePointerCapture(e.pointerId);
+          }
+        };
+
+        window.addEventListener('pointerup', stopDrag);
+        window.addEventListener('pointercancel', stopDrag);
+
+        // Open repository on click (ignore clicks that end a drag)
+        root.addEventListener('click', e => {
+          if (dragDist > 8) return;
+          const card = (e.target as HTMLElement).closest?.('.wcard') as HTMLElement | null;
+          if (!card || !card.dataset.url) return;
+          window.open(card.dataset.url, '_blank', 'noopener');
+        });
+      }
+    }
+  }
+</script>

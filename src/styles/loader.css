@@ -1,0 +1,145 @@
+/* ==========================================================================
+   loader.css — Tactical 5-Phase Intro Preloader.
+   AffanShz Creative Portfolio.
+   ========================================================================== */
+
+:root {
+  --ease-osmo: cubic-bezier(0.625, 0.05, 0, 1);
+  --ease-out:  cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 900;
+  display: none;
+  background: var(--c-black, #000000);
+  color: var(--c-white, #ffffff);
+  font-family: var(--font-mono);
+  font-size: var(--ui-10);
+  line-height: 0.5;
+  letter-spacing: var(--tracking-tight);
+  text-transform: uppercase;
+  overflow: hidden;
+  cursor: default;
+}
+
+html.is-loading .loader {
+  display: block;
+}
+
+.loader p {
+  margin: 0;
+}
+
+/* Loader logo at top left */
+.loader__logo {
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  width: 24px;
+  height: 24px;
+  background: url('/assets/logo.svg') 50% 50% / contain no-repeat;
+}
+
+/* Staggered block exit transition */
+.loader__block {
+  position: absolute;
+  will-change: transform;
+}
+
+.loader {
+  --exit-x: calc(100vw - 480px);
+}
+
+.loader.is-exiting .loader__block {
+  transform: translate3d(var(--exit-x), 0, 0);
+  transition: transform 1.1s var(--ease-osmo);
+  transition-delay: var(--exit-delay, 0s);
+}
+
+.loader__dead1 {
+  left: 200px;
+  top: 30px;
+  white-space: nowrap;
+}
+
+.loader__rule {
+  left: 200px;
+  top: 50px;
+  width: 40px;
+  height: 1px;
+  background: var(--ui-red);
+}
+
+.loader__lines {
+  left: 200px;
+  top: 75px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.loader__roles {
+  left: 200px;
+  top: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--ui-grey);
+}
+
+.loader__status {
+  left: 200px;
+  bottom: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.loader__pct {
+  left: 200px;
+  bottom: 40px;
+  font-size: 24px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  color: var(--ui-red);
+}
+
+.loader__enjoy {
+  left: 270px;
+  bottom: 40px;
+  line-height: 24px;
+  color: var(--ui-grey);
+}
+
+/* Flooding Red Line */
+.loader__line {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 0;
+  background: var(--ui-red);
+  will-change: width, height;
+}
+
+.loader.is-flooding .loader__line {
+  height: 100%;
+  transition: height 0.65s var(--ease-out);
+}
+
+/* Pause animations in page while loading */
+html.is-loading [data-barba="container"] .anim-line {
+  animation-play-state: paused;
+}
+
+html.is-loading .grain {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader {
+    display: none !important;
+  }
+}
